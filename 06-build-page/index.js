@@ -13,7 +13,7 @@ async function getFilesData(dir, type) {
     await fs.promises.rmdir(path.resolve(__dirname, dist), { recursive: true, force: true }).then(_ => fs.promises.mkdir(path.resolve(__dirname, dist)));
     await copyDir(path.resolve(__dirname, 'assets'), path.resolve(__dirname, dist, 'assets'));
     const [styles, components] = await Promise.all([getFilesData('styles', '.css'), getFilesData('components', '.html')]);
-    await fs.promises.writeFile(path.resolve(__dirname, dist, 'styles.css'), [...styles.header, ...styles.main, ...styles.footer].join(''));
+    await fs.promises.writeFile(path.resolve(__dirname, dist, 'style.css'), [...styles.header, ...styles.main, ...styles.footer].join(''));
 
     const template = await fs.promises.readFile(path.resolve(__dirname, 'template.html'), "utf8");
     const index = template.replace('{{header}}', components.header).replace('{{articles}}', components.articles).replace('{{footer}}', components.footer)
